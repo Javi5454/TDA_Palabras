@@ -4,6 +4,10 @@ LettersBag::LettersBag() {
     letters = Bag<char>();
 }
 
+LettersBag::LettersBag(const LettersBag &lettersSet) {
+    letters = lettersSet.letters;
+}
+
 void LettersBag::insertLetter(const char &i) {
 
 }

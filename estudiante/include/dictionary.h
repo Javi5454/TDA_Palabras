@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 /**
  * @brief TDA Dictionary
  * @details Almacena las palabras de un fichero de texto y permite iterar sobre ellas
@@ -23,7 +25,7 @@ class Dictionary{
      *
      * @section invDictionary
      *
-     * En nuestro Dictionary se mantendrán un cojunto de palabras. Como
+     * En nuestro Dictionary se mantienen un cojunto de palabras. Como
      * no estaremos interesados en almacenar las definicones, solo los términos,
      * usaremos un tipo de dato "set"
      *
