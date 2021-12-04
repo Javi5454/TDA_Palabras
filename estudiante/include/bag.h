@@ -67,7 +67,7 @@ public:
      * @param other
      * @return
      */
-    const Bag<T>& operator=(const Bag<T> &other);
+    Bag<T>& operator=(const Bag<T> &other);
 
 };
 
