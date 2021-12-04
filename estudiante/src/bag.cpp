@@ -41,7 +41,7 @@ void Bag<T>::clear() {
 }
 
 template<class T>
-unsigned int Bag<T>::size() {
+unsigned int Bag<T>::size() const {
     return v.size();
 }
 

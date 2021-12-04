@@ -8,6 +8,8 @@
 #ifndef __LETTERS_BAG_H__
 #define __LETTERS_BAG_H__
 #include <vector>
+#include "bag.h"
+#include "letters_set.h"
 
 using namespace std;
 
@@ -65,7 +67,7 @@ public:
      *
      * @param lettersSet TDA LettersSet a parsear
      */
-    LettersBag(const LettersSet &lettersSet);
+    explicit LettersBag(const LettersSet &lettersSet);
 
     /**
      * @brief Introduce una letra en la bolsa

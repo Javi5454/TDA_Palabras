@@ -4,30 +4,39 @@ LettersBag::LettersBag() {
     letters = Bag<char>();
 }
 
-LettersBag::LettersBag(const LettersBag &lettersSet) {
-    letters = lettersSet.letters;
+LettersBag::LettersBag(const LettersSet &lettersSet) {
+
+    for (int i = 0; i < lettersSet.size(); ++i) {
+        
+    }
 }
 
 void LettersBag::insertLetter(const char &i) {
-
+    letters.add(i);
 }
 
 char LettersBag::extractLetter() {
-    return 0;
+    return letters.get();
 }
 
 vector<char> LettersBag::extractLetters(int num) {
-    return vector<char>();
+
+    vector<char> v;
+    for (int i = 0; i < num; ++i)
+        v.push_back(letters.get());
+
+    return v;
 }
 
 void LettersBag::clear() {
-
+    letters.clear();
 }
 
-int LettersBag::size() {
-    return 0;
+unsigned int LettersBag::size() const{
+    return letters.size();
 }
 
 LettersBag &LettersBag::operator=(const LettersBag &other) {
-    return ;
+    this->letters = other.letters;
+    return *this;
 }
