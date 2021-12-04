@@ -135,7 +135,7 @@ public:
      * @param os Flujo de salida, donde escribir el LettersSet
      * @param cl LettersSet que se escribe
      */
-    ostream & operator<< (ostream& os, const LettersSet &cl);
+    friend ostream & operator<< (ostream& os, const LettersSet &cl);
 
     /**
      * @brief Sobrecarga del operador de entrada.
@@ -143,6 +143,6 @@ public:
      * @param cl LettersSet en el que almacenar la información leída.
      * @return
      */
-    istream& operator>> (istream& is, LettersSet &cl);
+    friend istream& operator>> (istream& is, LettersSet &cl);
 };
 #endif

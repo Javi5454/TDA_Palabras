@@ -7,7 +7,7 @@ LettersBag::LettersBag() {
 LettersBag::LettersBag(const LettersSet &lettersSet) {
 
     for (int i = 0; i < lettersSet.size(); ++i) {
-        
+
     }
 }
 
@@ -37,6 +37,8 @@ unsigned int LettersBag::size() const{
 }
 
 LettersBag &LettersBag::operator=(const LettersBag &other) {
-    this->letters = other.letters;
-    return *this;
+    if(this != &other){
+        this->letters = other.letters;
+        return *this;
+    }
 }
