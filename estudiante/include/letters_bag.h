@@ -7,7 +7,6 @@
 
 #ifndef __LETTERS_BAG_H__
 #define __LETTERS_BAG_H__
-#include "letters_bag.h"
 #include <vector>
 
 /**
@@ -29,7 +28,7 @@ class LettersBag{
      * @section faLettersBag
      *
      * fa: tipo_rep ----> LettersBag
-     *     Bag <char> ----> letter_bag
+     *     Bag <char> ----> letters_bag
      *
      *     La estructura Bag<char> representa el LetterBag
      */
