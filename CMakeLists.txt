@@ -34,7 +34,7 @@ endif()
 if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/palabras_longitud.cpp)
   add_executable(palabras_longitud
     ${BASE_FOLDER}/src/palabras_longitud.cpp
-    ${BASE_FOLDER}/src/dictionary.cpp)
+    ${BASE_FOLDER}/src/dictionary.cpp estudiante/src/palabras_longitud.cpp)
 endif()
 
 # check if Doxygen is installed
