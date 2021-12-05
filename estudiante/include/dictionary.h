@@ -47,6 +47,10 @@ public:
 
     class iterator{
 
+        /**
+         * @page repIteradorDictionary Representación de el iterator de la clase Dictionary
+         */
+
     private:
         set<string>::iterator it;
 
@@ -111,7 +115,6 @@ public:
 
         /**
          * @brief Sobrecarga del operador de decremento
-         * @return
          */
         iterator& operator--(){
             it--;
@@ -147,49 +150,93 @@ public:
         }
     };
 
+    /**
+     * @brief Iterador begin
+     * @return Iterator begin de Dicitonary
+     */
     iterator begin(){
         iterator i = words.begin();
         return i;
     }
 
+    /**
+     * @brief Iterador end
+     * @return Iterator end de Dicitonary
+     */
     iterator end(){
         iterator i = words.end();
         return i;
     }
 
     class const_iterator{
+
+        /**
+         * @page repConstIteratorDictionary Representacion del const_iterator de la clase Dictionary
+         */
     private:
         set<string>::const_iterator it;
 
     public:
-
+        /**
+         * @brief Constructor de const_iterator por defecto
+         */
         const_iterator(){}
 
+        /**
+         * @page Constructor de const_iterator por copia
+         * @param otro const_iterator de set a copiar
+         */
         const_iterator(const set<string>::const_iterator& otro):it(otro){}
 
+        /**
+         * @brief Constructor de const_iterator por copia
+         * @param otro const_iterator de dictionary a copiar
+         */
         const_iterator(const const_iterator& otro):it(otro.it){}
 
+        /**
+         * @brief Destructor por defecto
+         */
         ~const_iterator(){}
 
+        /**
+         * @brief Sobrecarga del operador de asignación
+         * @param otro set const_iterator a copiar
+         */
         const_iterator& operator=(const set<string>::const_iterator& otro){
             it = otro;
             return *this;
         }
 
+        /**
+         * @brief Sobrecarga del operador de asignación
+         * @param otro dictionary const_iterator a copiar
+         */
         const_iterator& operator=(const const_iterator& otro){
             it = otro.it;
             return *this;
         }
 
+        /**
+         * @brief Sobrecarga del operador de acceso
+         * @return String a donde apunta el const_iterator
+         */
         string operator*() const{
             return *it;
         }
 
+        /**
+         * @brief Sobrecarga del operador de incremento
+         */
         const_iterator& operator++(){
             it++;
             return *this;
         }
 
+        /**
+         * @brief Sobrecarga del operador de decremento
+         * @return
+         */
         const_iterator& operator--(){
             it--;
             return *this;
@@ -205,14 +252,43 @@ public:
             return *this;
         }
 
+        /**
+         * @brief Sobrecarga de operador de desigualdad
+         * @param otro const_iterator a comparar
+         * @return True si son distintos, false si son iguales
+         */
         bool operator!=(const const_iterator& otro){
             return it != otro.it;
         }
 
+        /**
+         * @brief Sobrecarga del operador de igualdad
+         * @param otro const_iterator a comparar
+         * @return True si son iguales, false si son distintos
+         */
         bool operator==(const const_iterator& otro){
             return it == otro.it;
         }
     };
+
+    /**
+     * @brief Acceso primer elemento del dictionary mediante iterador constante
+     * @return const_iterator que apunta al primer elemento de el dictionary
+     */
+    const_iterator begin() const{
+        const_iterator i = words.begin();
+        return i;
+    }
+
+    /**
+     * @brief Acceso a memoria inmediatamente después del último elemento del dictionary mediante interador constante
+     * @return const_iterator que apunta a la posición de memoria inmediatamente continua a el último elemento del
+     * dictionary
+     */
+    const_iterator end() const{
+        const_iterator i = words.end();
+        return i;
+    }
 
     /**
      * @brief Constructor por defecto.

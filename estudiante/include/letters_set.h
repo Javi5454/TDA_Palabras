@@ -58,6 +58,130 @@ private:
 
 public:
 
+    class iterator{
+        /**
+         * @page repIteradorLettersSet Representación del iterador de la clase LettersSet
+         */
+
+    private:
+        map<char, LetterInfo>::iterator it;
+
+    public:
+        /**
+         * @brief Constructor de iterator por defecto
+         */
+        iterator(){}
+
+        /**
+         * @brief Constructor de iterador por copia
+         * @param otro iterador a copiar
+         */
+        iterator(const map<char, LetterInfo>::iterator& otro):it(otro){}
+
+        /**
+         * @brief Constructor de iterador por copia a otro LettersSet::iterator
+         * @param otro LettersSet::iterator a copiar
+         */
+        iterator(const iterator& otro):it(otro.it){}
+
+        /**
+         * @brief Destructor por defecto
+         */
+        ~iterator(){}
+
+        /**
+         * @brief Sobrecarga del operador de asignación
+         * @param otro iterator que se copia
+         */
+        iterator& operator=(const map<char, LetterInfo>::iterator& otro){
+            it = otro;
+
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de asignación
+         * @param otro LettersSet::iterator a copiar
+         */
+        iterator& operator=(const iterator& otro){
+            it = otro.it;
+
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de acceso
+         * @return pair\<char, LetterInfo> donde apunta el iterador
+         */
+        pair<char, LetterInfo> operator*() const{
+            return *it;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de incremento
+         * @return
+         */
+        iterator& operator++(){
+            it++;
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de decremento
+         * @return
+         */
+        iterator& operator--(){
+            it--;
+            return *this;
+        }
+
+        iterator& operator++(int){
+            it++;
+            return *this;
+        }
+
+        iterator& operator--(int){
+            it--;
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de desigualad
+         * @param otro iterador a comparar
+         * @return True si son distintos, false si son iguales
+         */
+        bool operator!=(const iterator& otro){
+            return it != otro.it;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de igualdad
+         * @param otro iterador a comparar
+         * @return True si son iguales, false si son distintos
+         */
+        bool operator==(const iterator& otro){
+            return it == otro.it;
+        }
+    };
+
+    /**
+     * @brief Iterador begin
+     * @return Iterador begin de LettersSet
+     */
+    iterator begin(){
+        iterator i = letters.begin();
+        return i;
+    }
+
+    /**
+     * @brief Iterador end
+     * @return Iterador end de LettersSet
+     */
+    iterator end(){
+        iterator i = letters.end();
+        return i;
+    }
+
     /**
      * @brief Constructor por defecto.
      *

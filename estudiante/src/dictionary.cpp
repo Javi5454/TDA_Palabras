@@ -57,7 +57,7 @@ unsigned int Dictionary::size() const {
 int Dictionary::getOcurrences(const char c) {
     int result = 0;
 
-    Dictionary::const_iterator p1;
+    Dictionary::iterator p1;
 
     for (p1 = begin(); p1 != end(); p1++) {
         string word = *p1;
