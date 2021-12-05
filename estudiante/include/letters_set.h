@@ -103,11 +103,7 @@ public:
          * @brief Sobrecarga del operador de asignación
          * @param otro LettersSet::iterator a copiar
          */
-        iterator& operator=(const iterator& otro){
-            it = otro.it;
-
-            return *this;
-        }
+        iterator& operator=(const iterator& otro)= default;
 
         /**
          * @brief Sobrecarga del operador de acceso
@@ -287,7 +283,7 @@ public:
         while(!is.eof()){
             getline(is, to_add);
 
-            if(to_add != ""){
+            if(!to_add.empty()){
                 char letter_to_enter = to_add[0];
                 string s_quantity;
                 int last_pos;

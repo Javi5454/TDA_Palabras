@@ -50,12 +50,12 @@ unsigned int LettersSet::size() const {
 int LettersSet::getScore(string word) {
     int result = 0;
 
-    for (int i = 0; i < word.length(); ++i) {
-        word[i] = toupper(word[i]);
+    for (char & i : word) {
+        i = toupper(i);
     }
 
-    for (int i = 0; i < word.length(); ++i) {
-        map<char, LetterInfo>::iterator p1 = letters.find(word[i]);
+    for (char & i : word) {
+        map<char, LetterInfo>::iterator p1 = letters.find(i);
 
         pair<char, LetterInfo> letter = *p1;
 
@@ -65,10 +65,8 @@ int LettersSet::getScore(string word) {
     return result;
 }
 
-LettersSet &LettersSet::operator=(const LettersSet &cl) {
-    letters = cl.letters;
+LettersSet &LettersSet::operator=(const LettersSet &cl) = default;
 
-    return *this;
+LetterInfo &LettersSet::operator[](const char &val) {
+    return letters[val];
 }
-
-

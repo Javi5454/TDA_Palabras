@@ -1,4 +1,5 @@
 #include "letters_bag.h"
+#include "letters_set.h"
 #include "bag.h"
 
 LettersBag::LettersBag() {
@@ -7,8 +8,12 @@ LettersBag::LettersBag() {
 
 LettersBag::LettersBag(const LettersSet &lettersSet) {
 
-    for (int i = 0; i < lettersSet.size(); ++i) {
+    LettersSet aux_set = lettersSet;
 
+    for(auto it = aux_set.begin(); it != aux_set.end(); ++it) {
+        for (int j = 0; j < (*it).second.repetitions; ++j) {
+            letters.add((*it).first);
+        }
     }
 }
 
