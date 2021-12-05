@@ -2,10 +2,68 @@
 
 # Introducción
 
-A RELLENAR POR EL ESTUDIANTE
+Buenas, somos Adrián Jaén Fuentes y Javier Gómez López, del grupo A2 del DGIIM.
+
+En esta práctica y las prácticas siguientes construiremos las estructuras de datos adecuadas para resolver el problema
+de las letras del juego televisivo de cifras y letras, así como programas que nos permitan obtener la solución a una
+partida.
+
+Esta parte del juego consiste en formar la mejor palabra posible (dependiendo de uno de los dos
+criterios que explicamos a continuación) a partir de un conjunto de letras extraídas al azar de una
+bolsa. Por ejemplo, dadas las siguientes letras:
+O D Y R M E T
+una buena solución posible sería METRO. El número de letras que se juegan en cada partida se
+decide de antemano, y las letras disponibles pueden repetirse. Existen dos modalidades de juego:
+- Juego a longitud: En este modo de juego, se tiene en cuenta sólo la longitud de las palabras, y gana la palabra más
+larga encontrada
+- Juego a puntos: En este modo de juego, a cada letra se le asigna una puntuación, y la puntuación de la palabra será
+igual a la suma de las puntuaciones de las letras que la componen
+
+Estaremos especialmente interesados en dar una buena solución al problema de las letras. En esta
+primera práctica, estudiaremos qué información necesitamos almacenar, y cuál es la forma más
+adecuada de almacenarla, para poder jugar una partida al juego de las letras. En las prácticas
+siguientes, estudiaremos dos formas distintas de resolver el juego, que dependerá en parte de la
+estructura de datos subyacente.
 
 # Ejecutables
 
-A RELLENAR POR EL ESTUDIANTE
+--
+
+## bolsa
+
+Para probar el correcto funcionamiento de este TDA, implementaremos un pequeño programa en el
+archivo bolsa.cpp, que se encargará de recibir una serie de argumentos de main:
+
+- El primer argumento podrá ser una letra C o una letra I. Dependiendo de la letra,
+trabajaremos con una bolsa de caracteres (C) o una bolsa de enteros (I).
+- El resto de argumentos serán una lista de enteros o caracteres (según corresponda), que
+deberán meterse todos en la bolsa, y después ser extraídos aleatoriamente hasta que la
+bolsa quede vacía.
+
+> __bolsa__ \<Tipo(Char o Int)> \<Elementos (Enteros o Caracteres)>
+Se elige un tipo de bolsa y se introducen los datos que se quieran
+@param <Tipo> Letra C (char) o I (int)
+@param <Elementos> Enteros o Caracteres que se introducen a la bolsa
+@return Los elementos extraídos de la bolsa desordenados
+
+
+--
+
+## bolsa_letras
+
+Para comprobar el funcionamiento del TDA LettersBag, implementaremos un programa de prueba que
+realice las siguientes operaciones:
+
+- Cree un conjunto de letras (LettersSet), y lo rellene a partir de la información leída de un
+archivo.
+- Cree una bolsa de letras (LettersBag), y la rellene con la información del LettersSet anterior
+- Extraiga todas las letras de la LettersBag (aleatoriamente) y las imprima por pantalla.
+
+> __bolsa_letras__ \<Archivo>
+@param <Archivo> Dirección del archivo que contiene los datos del LettersSet.
+@return Los elementos extraídos de la bolsa de letras desordenados
+
+
+@image html Cola_max.jpg
 
 */

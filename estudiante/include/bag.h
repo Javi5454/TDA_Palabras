@@ -1,15 +1,18 @@
-//
-// Created by Adrián Jaén on 04/12/2021.
-//
+/**
+ * @file bag.h
+ * @brief Archivo de especificación del TDA Bag
+ * @author Adrián Jaén Fuentes
+ * @author Javier Gómez López
+ */
 
 #ifndef __BAG_H__
 #define __BAG_H__
 
 #include "vector"
 #include "cstdlib"
-#include "stdio.h"
+#include <cstdio>
 #include <random>
-#include <time.h>
+#include <ctime>
 #include "chrono"
 
 using namespace std;
@@ -23,13 +26,28 @@ using namespace std;
 
 template<class T>
 class Bag {
+    /**
+     * @page repBag Representación del TDA Bag
+     *
+     * @section invBag
+     *
+     * Bag<T> es un contenedor que nos permite extraer y añadir elementos de forma aleatoria fácilmente hecha
+     * a partir del vector
+     *
+     * @section faBag
+     *
+     * fa: tipo_rep ----> Bag<T>
+     *     vector<T> ----> Bag<T>
+     *
+     *     La estructura representa el Bag
+     */
 
 private:
     vector<T> v;
 public:
 
     /**
-     * @brief Base constructor
+     * @brief Constructor base
      */
     Bag();
 
@@ -40,95 +58,47 @@ public:
     Bag(const Bag<T> &other);
 
     /**
-     *
-     * @param element
+     * @brief Añade un elemento a la bolsa
+     * @param element elemento del tipo T a añadir a la bolsa
      */
     void add(const T &element);
 
     /**
-     *
-     * @return
+     * @brief Extrae un elemento aleatorio de la bolsa
+     * Devuelve un elemento aleatorio de la bolsa y lo elimina de la misma
+     * @return Elemento de tipo T extraído de la bolsa
+     * @pre La bolsa no está vacía
+     * @post El elemento devuelto se ha eliminado de la bolsa
      */
     T get();
 
     /**
-     *
+     * @brief Elimina todos los elementos de la bolsa
+     * Borra todos los elementos almacenados en la bolsa
      */
     void clear();
 
     /**
-     *
-     * @return
+     * @brief Tamaño de la bolsa
+     * @return Número de elemetos que hay en la bolsa
      */
     unsigned int size() const;
 
     /**
-     *
-     * @return
+     * @brief Comprueba si la bolsa está vacía
+     * @return true si la bolsa está vacía, false en caso contrario
      */
     bool empty();
 
     /**
-     *
-     * @param other
-     * @return
+     * @brief Sobrecarga el operador de asignación
+     * @param other Bag<T> a copiar
+     * @return Referencia a this para poder encadenar el operador
      */
     Bag<T>& operator=(const Bag<T> &other);
 
 };
 
-
-template<class T>
-Bag<T>::Bag(){
-    this->v=vector<T>{};
-}
-
-template<class T>
-Bag<T>::Bag(const Bag<T> &other) {
-    this->v = other.v;
-}
-
-template<class T>
-void Bag<T>::add(const T &element) {
-    if (v.size() == 0)
-        v.push_back(element);
-    else {
-        srand (1);
-        int randNum = rand()%v.size();
-        v.push_back(v[randNum]);
-        v[randNum] = element;
-    }
-}
-
-template<class T>
-T Bag<T>::get() {
-    srand (time(NULL));
-    int randNum = rand()%v.size();
-    T element = v[randNum];
-    v[randNum] = v[v.size()-1];
-    v.pop_back();
-    return element;
-}
-
-template<class T>
-void Bag<T>::clear() {
-    v.clear();
-}
-
-template<class T>
-unsigned int Bag<T>::size() const {
-    return v.size();
-}
-
-template<class T>
-bool Bag<T>::empty() {
-    return v.empty();
-}
-
-template<class T>
-Bag<T> &Bag<T>::operator=(const Bag<T> &other) {
-    v = other.v;
-    return *this;
-}
-
 #endif //__BAG_H__
+
+

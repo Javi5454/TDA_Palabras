@@ -14,7 +14,7 @@ if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/conjunto_letras.cpp)
 endif()
 
 if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/bolsa.cpp)
-  add_executable(bolsa ${BASE_FOLDER}/src/bolsa.cpp estudiante/src/bag.cpp estudiante/include/bag.h estudiante/src/bolsa.cpp)
+  add_executable(bolsa ${BASE_FOLDER}/src/bolsa.cpp estudiante/src/bolsa.cpp)
 endif()
 
 if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/bolsa_letras.cpp)

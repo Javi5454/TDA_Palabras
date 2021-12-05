@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
         }
     }
     else{
-        cout << "aAaAAAAAAA no va me cago en DIOOOOOOOOOOOOOOOOOOOOOOOOOS";
+        cout << "No se pudo abrir el archivo :(";
     }
 
     return 0;

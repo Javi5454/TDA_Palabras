@@ -26,7 +26,7 @@ class LettersBag{
      *
      * @section invLettersBag
      *
-     * En nuestro LetterBag se seleccion letras con las que vamos a jugar una
+     * En nuestro LetterBag se seleccionan letras con las que vamos a jugar una
      * partida de las letras.
      *
      * @section faLettersBag

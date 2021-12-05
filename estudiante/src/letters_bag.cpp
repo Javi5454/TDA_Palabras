@@ -1,6 +1,7 @@
 #include "letters_bag.h"
 #include "letters_set.h"
 #include "bag.h"
+#include "bag.cpp"
 
 LettersBag::LettersBag() {
     letters.empty();
