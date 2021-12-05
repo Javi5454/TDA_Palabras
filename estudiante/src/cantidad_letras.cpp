@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     dictionary_input.open(dictionary_file);
 
     if (dictionary_input) {
-        while (!dictionary_input.eof()) {
+        while (dictionary_input) {
             string to_add;
 
             dictionary_input >> to_add;
@@ -36,6 +36,10 @@ int main(int argc, char *argv[]) {
     ifstream letterSet_input;
 
     letterSet_input.open(letters_file);
+    
+    if(!letterSet_input){
+        return 0;
+    }
 
     letterSet_input >> lettersSet;
 

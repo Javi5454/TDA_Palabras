@@ -63,7 +63,7 @@ int Dictionary::getOcurrences(const char c) {
         string word = *p1;
         int longitud = word.length();
 
-        for (int i = 0; i < longitud; ++i) {
+        for (int i = 0; i < longitud; i++) {
             if(word[i] == c){
                 result++;
             }
@@ -76,8 +76,11 @@ int Dictionary::getOcurrences(const char c) {
 int Dictionary::getTotalLetters() {
     int result = 0;
 
-    for (char i = 'a'; i <= 'z'; ++i) {
-        result += getOcurrences(i);
+    set<string>::iterator p1;
+    
+    for(p1 = words.begin(); p1 != words.end(); p1++){
+        string word = *p1;
+        result += word.length();
     }
 
     return result;
