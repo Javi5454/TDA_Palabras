@@ -45,6 +45,175 @@ private:
 
 public:
 
+    class iterator{
+
+    private:
+        set<string>::iterator it;
+
+    public:
+        /**
+         * @brief Constructor de iterator por defecto
+         */
+        iterator(){}
+
+        /**
+         * @brief Constructor de iterator por copia
+         * @param otro iterator a copiar
+         */
+        iterator(const set<string>::iterator& otro):it(otro){}
+
+        /**
+         * @brief Constructor de iterator por copia a otro dictionary::iterator
+         * @param otro dictionary::iterator a copiar
+         */
+        iterator(const iterator& otro):it(otro.it){}
+
+        /**
+         * @brief Destructor por defecto
+         */
+        ~iterator(){}
+
+        /**
+         * @brief Sobrecarga del operador de asignacion
+         * @param otro iterator que se copia
+         */
+        iterator& operator= (const set<string>::iterator& otro){
+            it = otro;
+
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de asignación
+         * @param otro dictionary::iterator a copiar
+         */
+        iterator& operator=(const iterator& otro){
+            it = otro.it;
+
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de acceso
+         * @return \<string> donde apunta el iterador
+         */
+        string operator*() const{
+            return *it;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de incremento
+         */
+        iterator& operator++(){
+            it++;
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de decremento
+         * @return
+         */
+        iterator& operator--(){
+            it--;
+            return *this;
+        }
+
+        iterator& operator++(int){
+            it++;
+            return *this;
+        }
+
+        iterator& operator--(int){
+            it--;
+            return *this;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de desigualdad
+         * @param otro iterador a comparar
+         * @return True si son distintos, false si son iguales
+         */
+        bool operator!= (const iterator& otro){
+            return it != otro.it;
+        }
+
+        /**
+         * @brief Sobrecarga del operador de igualdad
+         * @param otro iterador a comparar
+         * @return True si son iguales, false si son distintos
+         */
+        bool operator== (const iterator& otro){
+            return it == otro.it;
+        }
+    };
+
+    iterator begin(){
+        iterator i = words.begin();
+        return i;
+    }
+
+    iterator end(){
+        iterator i = words.end();
+        return i;
+    }
+
+    class const_iterator{
+    private:
+        set<string>::const_iterator it;
+
+    public:
+
+        const_iterator(){}
+
+        const_iterator(const set<string>::const_iterator& otro):it(otro){}
+
+        const_iterator(const const_iterator& otro):it(otro.it){}
+
+        ~const_iterator(){}
+
+        const_iterator& operator=(const set<string>::const_iterator& otro){
+            it = otro;
+            return *this;
+        }
+
+        const_iterator& operator=(const const_iterator& otro){
+            it = otro.it;
+            return *this;
+        }
+
+        string operator*() const{
+            return *it;
+        }
+
+        const_iterator& operator++(){
+            it++;
+            return *this;
+        }
+
+        const_iterator& operator--(){
+            it--;
+            return *this;
+        }
+
+        const_iterator& operator++(int){
+            it++;
+            return *this;
+        }
+
+        const_iterator& operator--(int){
+            it--;
+            return *this;
+        }
+
+        bool operator!=(const const_iterator& otro){
+            return it != otro.it;
+        }
+
+        bool operator==(const const_iterator& otro){
+            return it == otro.it;
+        }
+    };
+
     /**
      * @brief Constructor por defecto.
      *

@@ -57,9 +57,9 @@ unsigned int Dictionary::size() const {
 int Dictionary::getOcurrences(const char c) {
     int result = 0;
 
-    set<string>::iterator p1;
+    Dictionary::const_iterator p1;
 
-    for (p1 = words.begin(); p1 != words.end(); p1++) {
+    for (p1 = begin(); p1 != end(); p1++) {
         string word = *p1;
         int longitud = word.length();
 

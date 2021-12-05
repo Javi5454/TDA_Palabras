@@ -1,7 +1,8 @@
 #include "letters_bag.h"
+#include "bag.h"
 
 LettersBag::LettersBag() {
-    letters = Bag<char>();
+    letters.empty();
 }
 
 LettersBag::LettersBag(const LettersSet &lettersSet) {
@@ -39,6 +40,6 @@ unsigned int LettersBag::size() const{
 LettersBag &LettersBag::operator=(const LettersBag &other) {
     if(this != &other){
         this->letters = other.letters;
-        return *this;
     }
+    return *this;
 }

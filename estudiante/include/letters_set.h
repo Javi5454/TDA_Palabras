@@ -8,6 +8,7 @@
 #ifndef __LETTER_SET_H__
 #define __LETTER_SET_H__
 #include <map>
+#include <iostream>
 
 using namespace std;
 
@@ -135,7 +136,18 @@ public:
      * @param os Flujo de salida, donde escribir el LettersSet
      * @param cl LettersSet que se escribe
      */
-    friend ostream & operator<< (ostream& os, const LettersSet &cl);
+    friend ostream & operator<< (ostream& os, const LettersSet &cl){
+        map<char, LetterInfo>::const_iterator p1;
+
+        for(p1 = cl.letters.begin(); p1 != cl.letters.end(); p1++){
+            pair<char, LetterInfo> element = *p1;
+
+            os << element.first << " " << element.second.score << " " << element.second.repetitions;
+            os << endl;
+        }
+
+        return os;
+    }
 
     /**
      * @brief Sobrecarga del operador de entrada.
@@ -143,6 +155,48 @@ public:
      * @param cl LettersSet en el que almacenar la información leída.
      * @return
      */
-    friend istream& operator>> (istream& is, LettersSet &cl);
+    friend istream& operator>> (istream& is, LettersSet &cl){
+        string to_add;
+
+        getline(is, to_add);
+
+        while(!is.eof()){
+            getline(is, to_add);
+
+            if(to_add != ""){
+                char letter_to_enter = to_add[0];
+                string s_quantity;
+                int last_pos;
+
+                for (int i = 2; to_add[i] != '\t' ; ++i) {
+                    s_quantity += to_add[i];
+                    last_pos = i;
+                }
+
+                int quantity = stoi(s_quantity);
+
+                string s_score;
+
+                for (int i = last_pos+2; i < to_add.length(); ++i) {
+                    s_score += to_add[i];
+                }
+
+                int score = stoi(s_score);
+
+                LetterInfo letterInfo;
+
+                letterInfo.repetitions = quantity;
+                letterInfo.score = score;
+
+                pair<char, LetterInfo> to_enter;
+                to_enter.first = letter_to_enter;
+                to_enter.second = letterInfo;
+
+                cl.insert(to_enter);
+            }
+        }
+
+        return is;
+    }
 };
 #endif
