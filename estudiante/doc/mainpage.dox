@@ -1,4 +1,6 @@
-/*! \mainpage Título de la página principal
+/*! \mainpage Práctica4: TDAs no lineales. Juego de palabras
+
+@image html logo_scrabble.png
 
 # Introducción
 
@@ -26,6 +28,21 @@ siguientes, estudiaremos dos formas distintas de resolver el juego, que depender
 estructura de datos subyacente.
 
 # Ejecutables
+
+--
+
+## conjunto_letras
+
+Para probar el funcionamiento de el TDA LettersSet, implementaremos un pequeño programa que recibirá dos argumentos:
+
+- Ruta al archivo con información sobre el conjunto de letras
+- Palabra de la que calcular la puntuación
+
+> __conjunto_letras__ \<Ruta input> \<Palabra>
+
+@param <Ruta input> Ruta del archivo que contiene la información sobre el conjunto de letras
+@param <Palabra> Palabra de la que calcular la puntuación
+@return La puntuación de la palabra introducida
 
 --
 
@@ -63,7 +80,38 @@ archivo.
 @param <Archivo> Dirección del archivo que contiene los datos del LettersSet.
 @return Los elementos extraídos de la bolsa de letras desordenados
 
+--
 
-@image html Cola_max.jpg
+## palabras_longitud
+
+Para probar el funcionamiento del TDA Dictionary, implentamos un programa de prueba que realice las siguientes
+operaciones:
+
+- Construye un Dictionary con el fichero de las palabras
+- Extra de dicho diccionario las palabras de la longitud que buscamos
+- Imprime dichas palabras por pantalla
+
+> __palabras_longitud__ \<Ruta input> \<int>
+@param <Ruta input> Dirección del archivo que contiene las palabras de un diccionario
+@param <int> Entero con la logitud de las palabras que buscamos
+@post Muestra por pantalla las palabras del diccionario que tienen una longitud \<int>
+
+--
+
+## cantidad_letras
+
+Para realizar otra prueba al funcionamiento de nuestro TDA Dictionary, implementamos un programa de prueba que realice
+las siguientes operaciones:
+
+- Construye un Dictionary con el fichero de palabras
+- Construye un LettersSet con el fichero de letras
+- Imprime por pantalla, para cada letra del LettersSet, el número de ocurrencias de la letra en el diccionario y
+su frecuencia relativa
+
+> __cantidad_letras__ \<Input diccionario> \<Input letras>
+@param <Input diccionario> Ruta del archivo que contiene las palabras de un diccionario
+@param <Input letras> Ruta del archivo que contiene la información de las letras
+@post Muestra por pantalla, para cada letra del LettersSet, el número de ocurrencias de la letra en el diccionario y
+su frecuencia relativa
 
 */
