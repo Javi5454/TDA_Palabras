@@ -89,7 +89,7 @@ int main(int argc, char *argv[]){
         cout << i << endl;
     }
 
-    cout << "PUNTUACIÓN:\n" << solutions.second;
+    cout << "PUNTUACION:\n" << solutions.second;
 
 
     return 0;
