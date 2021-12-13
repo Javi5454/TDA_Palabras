@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(p04_tdas_no_lineales)
+project(p05_solver_letras)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -7,35 +7,22 @@ set(BASE_FOLDER estudiante)
 
 include_directories(${BASE_FOLDER}/include)
 
-if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/conjunto_letras.cpp)
-  add_executable(conjunto_letras
-    ${BASE_FOLDER}/src/conjunto_letras.cpp
-    ${BASE_FOLDER}/src/letters_set.cpp estudiante/src/conjunto_letras.cpp)
-endif()
-
-if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/bolsa.cpp)
-  add_executable(bolsa ${BASE_FOLDER}/src/bolsa.cpp estudiante/src/bolsa.cpp)
-endif()
-
-if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/bolsa_letras.cpp)
-  add_executable(bolsa_letras
-    ${BASE_FOLDER}/src/bolsa_letras.cpp
-    ${BASE_FOLDER}/src/letters_bag.cpp
+if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/partida_letras.cpp)
+  add_executable(partida_letras
+    ${BASE_FOLDER}/src/partida_letras.cpp
     ${BASE_FOLDER}/src/letters_set.cpp
-    ${BASE_FOLDER}/src/bag.cpp)
+    ${BASE_FOLDER}/src/letters_bag.cpp
+    ${BASE_FOLDER}/src/solver.cpp
+    ${BASE_FOLDER}/src/dictionary.cpp)
 endif()
 
-if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/cantidad_letras.cpp)
-  add_executable(cantidad_letras
-    ${BASE_FOLDER}/src/cantidad_letras.cpp
-    ${BASE_FOLDER}/src/dictionary.cpp
-    ${BASE_FOLDER}/src/letters_set.cpp estudiante/src/cantidad_letras.cpp)
-endif()
-
-if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/palabras_longitud.cpp)
-  add_executable(palabras_longitud
-    ${BASE_FOLDER}/src/palabras_longitud.cpp
-    ${BASE_FOLDER}/src/dictionary.cpp estudiante/src/palabras_longitud.cpp)
+if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/partida_letras_profesor.cpp)
+  add_executable(partida_letras_profesor
+    ${BASE_FOLDER}/src/partida_letras_profesor.cpp
+    ${BASE_FOLDER}/src/letters_set.cpp
+    ${BASE_FOLDER}/src/letters_bag.cpp
+    ${BASE_FOLDER}/src/solver.cpp
+    ${BASE_FOLDER}/src/dictionary.cpp)
 endif()
 
 # check if Doxygen is installed
