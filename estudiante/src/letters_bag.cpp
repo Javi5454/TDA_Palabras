@@ -4,7 +4,7 @@
 #include "bag.cpp"
 
 LettersBag::LettersBag() {
-    letters.empty();
+    letters.clear();
 }
 
 LettersBag::LettersBag(const LettersSet &lettersSet) {
