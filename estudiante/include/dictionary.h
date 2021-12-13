@@ -352,7 +352,7 @@ public:
      * @param c letra a buscar
      * @return Un entero indicando el numero de aparaciones
      */
-    int getOcurrences(const char c);
+    int getOcurrences(char c);
 
     /**
      * @brief Cuenta el total de letras de un diccionario.
