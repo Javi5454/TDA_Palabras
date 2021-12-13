@@ -25,6 +25,24 @@ if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/partida_letras_profesor.cpp)
     ${BASE_FOLDER}/src/dictionary.cpp)
 endif()
 
+if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/partida_letras.cpp)
+    add_executable(partida_letras
+            ${BASE_FOLDER}/src/partida_letras.cpp
+            ${BASE_FOLDER}/src/letters_set.cpp
+            ${BASE_FOLDER}/src/letters_bag.cpp
+            ${BASE_FOLDER}/src/solver.cpp
+            ${BASE_FOLDER}/src/dictionary.cpp)
+endif()
+
+if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/partida_letras_profesor.cpp)
+    add_executable(partida_letras_profesor
+            ${BASE_FOLDER}/src/partida_letras_profesor.cpp
+            ${BASE_FOLDER}/src/letters_set.cpp
+            ${BASE_FOLDER}/src/letters_bag.cpp
+            ${BASE_FOLDER}/src/solver.cpp
+            ${BASE_FOLDER}/src/dictionary.cpp)
+endif()
+
 # check if Doxygen is installed
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
