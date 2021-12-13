@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
     if(gamemode == "L")
         score_game = false;
     else if(gamemode == "P")
-        score_game = true;
+        score_game = false;
     else{
         cout << "Wrong gamemode";
         exit(1);
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]){
             string to_add;
             dict_input >> to_add;
 
-            if (!to_add.empty()){
+            if (to_add != ""){
                 dictionary.insert(to_add);
             }
         }
