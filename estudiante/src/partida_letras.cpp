@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
     if(gamemode == "L")
         score_game = false;
     else if(gamemode == "P")
-        score_game = false;
+        score_game = true;
     else{
         cout << "Wrong gamemode";
         exit(1);

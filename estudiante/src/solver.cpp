@@ -24,7 +24,7 @@ bool Solver::possibleSol(vector<char> available_letters, const string &word){
         for(p1 = aux_letters.begin(); p1 != aux_letters.end(); p1++){
 
             if(toupper(current) == *p1){
-                p1 = aux_letters.erase(p1);
+                aux_letters.erase(p1);
                 exist = true;
                 break;
             }
@@ -83,9 +83,40 @@ pair<vector<string>, int> Solver::solveLongest(const Dictionary &dict) {
 pair<vector<string>, int> Solver::getSolutions(const vector<char> &available_letters, bool score_game) {
     Dictionary aux(possibleWords(available_letters));
 
-    if(!score_game){
+    if(!score_game)
         return solveLongest(aux);
+    else
+        return solveScore(aux);
+}
+
+pair<vector<string>, int> Solver::solveScore(const Dictionary &dict) {
+
+    int highest_score = 0;
+    vector<string> result;
+
+    Dictionary::const_iterator it;
+
+    for(it = dict.begin(); it != dict.end(); ++it){
+
+        int curr_score = letters_set.getScore(*it);
+
+        if (curr_score < highest_score)
+            continue;
+        else if (curr_score > highest_score) {
+            highest_score = curr_score;
+            result.clear();
+            result.push_back(*it);
+        } else
+            result.push_back(*it);
+
     }
+
+    pair<vector<string>, int> solution;
+
+    solution.first = result;
+    solution.second = highest_score;
+
+    return solution;
 }
 
 

@@ -47,6 +47,9 @@ private:
      * soluciones de nuestra partida, y su longitud.
      */
     pair<vector<string>, int> solveLongest(const Dictionary &dict);
+
+    pair<vector<string>, int> solveScore(const Dictionary &dict);
+
 public:
 
     /**
