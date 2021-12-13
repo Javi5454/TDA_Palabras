@@ -2,7 +2,6 @@
  *   \file solver.h
  *   \brief Archivo de declaración de la clase Solver
  */
-=======
 //
 // Created by Adrián Jaén on 12/12/2021.
 //
@@ -19,6 +18,35 @@ class Solver {
 private:
     Dictionary dict;
     LettersSet letters_set;
+
+
+    /**
+     * @brief Comprueba si una palabra se puede construir a partir de un conjunto de
+     * letras dado
+     * @param available_letters Vector de letras disponibles
+     * @param word Palabra a comprobar
+     * @return True si la palabra se puede construir, False si no se puede consturir
+     */
+    bool possibleSol(vector<char> available_letters, const string &word);
+
+    /**
+     * @brief Crea un diccionario formado solo por palabras ya válidas a partir de unas
+     * letras disponibles.
+     * @param available_letters Vector de letras disponibles
+     * @return Diccionario que contine solo las palabras que podemos formar a partir de
+     * las letras dadas en \<available_letters>.
+     */
+    Dictionary possibleWords(const vector<char>& available_letters);
+
+    /**
+     * @brief Construye un vector de las posibles soluciones de una partida por longitud.
+     * Junto al vector va asociado un entero que indica la longitud de dichas palabras
+     * @param dict Diccionario que contiene exclusivamente palabras que se pueden formar
+     * a partir de las letras de nuestra partida
+     * @return Par \<vector\<string>, int> con el vector de las palabras que son posibles
+     * soluciones de nuestra partida, y su longitud.
+     */
+    pair<vector<string>, int> solveLongest(const Dictionary &dict);
 public:
 
     /**

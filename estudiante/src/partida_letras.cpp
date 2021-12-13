@@ -49,7 +49,6 @@ int main(int argc, char *argv[]){
     available_letters.reserve(letters_num);
     for(int i = 0; i < letters_num; ++i){
         available_letters.push_back(bag.extractLetter());
-        cout << available_letters[i] << " ";
     }
 
     // Dictionary
@@ -63,7 +62,10 @@ int main(int argc, char *argv[]){
         while(!dict_input.eof()) {
             string to_add;
             dict_input >> to_add;
-            dictionary.insert(to_add);
+
+            if (to_add != ""){
+                dictionary.insert(to_add);
+            }
         }
     }
     dict_input.close();
@@ -74,10 +76,12 @@ int main(int argc, char *argv[]){
 
     pair<vector<string>, int> solutions = solver.getSolutions(available_letters, score_game);
 
-    cout << "LETRAS DISPONIBLES:\n";
+    cout << "LETRAS DISPONIBLES:" << endl;
 
     for (auto i:available_letters)
         cout << i << " ";
+
+    cout << endl;
 
     cout << "SOLUCIONES:\n";
 

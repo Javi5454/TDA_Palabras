@@ -365,7 +365,7 @@ public:
      * @param length Longitud de las palabras buscadas
      * @return Vector de palabras con la longitud deseada
      */
-    vector<string> wordsOfLength(int length);
+    vector<string> wordsOfLength(int length) const;
 };
 
 #endif

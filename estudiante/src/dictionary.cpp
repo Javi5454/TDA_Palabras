@@ -86,7 +86,7 @@ int Dictionary::getTotalLetters() {
     return result;
 }
 
-vector<string> Dictionary::wordsOfLength(int length) {
+vector<string> Dictionary::wordsOfLength(int length) const {
     vector<string> result;
 
     set<string>::iterator p1;
