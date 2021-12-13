@@ -63,7 +63,7 @@ int main(int argc, char *argv[]){
             string to_add;
             dict_input >> to_add;
 
-            if (to_add != ""){
+            if (!to_add.empty()){
                 dictionary.insert(to_add);
             }
         }
@@ -89,7 +89,7 @@ int main(int argc, char *argv[]){
         cout << i << endl;
     }
 
-    cout << "PUNTUACIÓN:\n" << solutions.second;
+    cout << "PUNTUACION:\n" << solutions.second;
 
 
     return 0;

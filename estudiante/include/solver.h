@@ -27,7 +27,7 @@ private:
      * @param word Palabra a comprobar
      * @return True si la palabra se puede construir, False si no se puede consturir
      */
-    bool possibleSol(vector<char> available_letters, const string &word);
+    static bool possibleSol(vector<char> available_letters, const string &word);
 
     /**
      * @brief Crea un diccionario formado solo por palabras ya válidas a partir de unas
@@ -41,12 +41,15 @@ private:
     /**
      * @brief Construye un vector de las posibles soluciones de una partida por longitud.
      * Junto al vector va asociado un entero que indica la longitud de dichas palabras
-     * @param dict Diccionario que contiene exclusivamente palabras que se pueden formar
+     * @param dictionary Diccionario que contiene exclusivamente palabras que se pueden formar
      * a partir de las letras de nuestra partida
      * @return Par \<vector\<string>, int> con el vector de las palabras que son posibles
      * soluciones de nuestra partida, y su longitud.
      */
-    pair<vector<string>, int> solveLongest(const Dictionary &dict);
+    static pair<vector<string>, int> solveLongest(const Dictionary &dictionary);
+
+    pair<vector<string>, int> solveScore(const Dictionary &dict);
+
 public:
 
     /**
