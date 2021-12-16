@@ -116,6 +116,24 @@ su frecuencia relativa
 
 --
 
+## partida_letras
+
+Para realizar una prueba al funcionamiento de nuestro TDA Solver, implementamos un programa de prueba que realice
+las siguientes operaciones:
+
+- Construye una Bag con el número de letras indicado como argumento
+- Usa la clase Solver para encontrar las soluciones al juego de las letras para las letras de la Bag
+- Imprime por pantalla las letras disponibles, las posibles soluciones y la puntuación dependiendo si es juego a puntos
+o a longitud
+
+> __partida_letras__ \<Archivo letras> \<Archivo diccionario> \<Modo de juego(L o P)> \<Num letras>
+@param <Archivo letras> Ruta del archivo que contiene la cantidad de letras y su puntuacion
+@param <Input letras> Ruta del archivo que contiene las palabras de un diccionario
+@post Imprime por pantalla las letras disponibles, las posibles soluciones y la puntuación dependiendo si es juego a
+puntos o a longitud
+
+--
+
 # Análisis de la complejidad computacional O-grande
 
 A continuación, procederemos a el análisis de todos los métodos utilizados por el TDA Solver así como el de resto de

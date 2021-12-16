@@ -48,6 +48,14 @@ private:
      */
     pair<vector<string>, int> solveLongest(const Dictionary &dict);
 
+    /**
+     * @brief Construye un vector de las posibles soluciones de una partida por puntuación.
+     * Junto al vector va asociado un entero que indica la puntuación de dichas palabras
+     * @param dict Diccionario que contiene exclusivamente palabras que se pueden formar
+     * a partir de las letras de nuestra partida
+     * @return Par \<vector\<string>, int> con el vector de las palabras que son posibles
+     * soluciones de nuestra partida, y su puntuación.
+     */
     pair<vector<string>, int> solveScore(const Dictionary &dict);
 
 public:

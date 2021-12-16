@@ -63,7 +63,7 @@ int main(int argc, char *argv[]){
             string to_add;
             dict_input >> to_add;
 
-            if (to_add != ""){
+            if (!to_add.empty()){
                 dictionary.insert(to_add);
             }
         }
