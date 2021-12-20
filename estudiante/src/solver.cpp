@@ -23,12 +23,13 @@ int Solver::wordScore(vector<char> available_letters, const string &word, bool s
         vector<char>::iterator p1; //O(1)
         bool exist = false; //O(1)
 
-        for(p1 = aux_letters.begin(); p1 != aux_letters.end(); p1++){ //O(n)
-
-            if(toupper(current) == *p1){ //O(1)
-                aux_letters.erase(p1); //O(n)
-                exist = true; //O(1)
-                break;
+        for(int i = 0; i < aux_letters.size(); i++){ //O(n)                         //
+                                                                                    //
+            if(toupper(current) == aux_letters[i]){ //O(1)                       //
+                aux_letters[i] = aux_letters[aux_letters.size()-1]; // O(1)         // O(n^2)
+                aux_letters.pop_back(); // O(1)                                     //
+                exist = true; // O(1)                                               //
+                break;                                                              //
             }
         }
 
@@ -48,7 +49,7 @@ pair<vector<string>, int> Solver::getSolutions(const vector<char> &available_let
     int highest_score = 0; //O(1)
     vector<string> result; //O(1)
 
-    const Dictionary aux = dict; //O(1)
+    const Dictionary aux; //O(1)
     Dictionary::iterator it; //O(1)
 
     for(it = dict.begin(); it != dict.end(); ++it){ //O(n)
@@ -61,8 +62,9 @@ pair<vector<string>, int> Solver::getSolutions(const vector<char> &available_let
             highest_score = curr_score; //O(1)
             result.clear(); //O(n)
             result.push_back(*it); //O(1)
-        } else
+        } else {
             result.push_back(*it); //O(1)
+        }
     }
 
     pair<vector<string>, int> solutions {result, highest_score};

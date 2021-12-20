@@ -713,13 +713,8 @@ Para mantener los principios de ocultación de información, nos limitaremos a n
 los métodos privados de la clase y su complejidad computacional, sin mostrar
 su código.
 
-- __bool wordScore(vector<char> available_letters, const string &word)__ Eficiencia
-de O(n^3)
-- __Dictionary possibleWords(const vector<char>& available_letters)__ Eficiencia de
-O(n^4 * log(n))
-- __pair<vector<string>, int> solveLongest(const Dictionary &dict)__ Eficiencia de O(n)
-- __pair<vector<string>, int> solveScore(const Dictionary &dict)__ Eficienica de
-O(n^2 * log(n))
+- __bool wordScore(vector<char> available_letters, const string &word, bool score_game)__ Eficiencia
+de O(n^2)
 
 ### Solver(const Dictionary& dict, const LettersSet& letters_set)
 ~~~cpp
@@ -735,18 +730,36 @@ En este caso la complejidad es O(1).
 
 ~~~cpp
 pair<vector<string>, int> Solver::getSolutions(const vector<char> &available_letters, bool score_game) {
-    Dictionary aux(possibleWords(available_letters)); //O(n^4 * log(n))
 
-    if(!score_game) //O(1)
-        return solveLongest(aux); //O(n)
-    else
-        return solveScore(aux); //O(n^2 * log(n))
+    int highest_score = 0; //O(1)
+    vector<string> result; //O(1)
+
+    const Dictionary aux; //O(1)
+    Dictionary::iterator it; //O(1)
+
+    for(it = dict.begin(); it != dict.end(); ++it){ //O(n)
+
+        int curr_score = wordScore(available_letters, *it, score_game); //O(n^2)
+
+        if (curr_score < highest_score) //O(1)
+            continue;
+        else if (curr_score > highest_score) { //O(1)
+            highest_score = curr_score; //O(1)
+            result.clear(); //O(n)
+            result.push_back(*it); //O(1)
+            cout << (*it) << endl;
+        } else
+            result.push_back(*it); //O(1)
+    }
+
+    pair<vector<string>, int> solutions {result, highest_score};
+    return solutions;
 }
 ~~~
 
-Por lo tanto la eficiencia es de O(n^4 * log(n))
+Por lo tanto la eficiencia es de O(n^3)
 
-#### Gráfica representnado la complejidad de los métodos del TDA Solver
+#### Gráfica representando la complejidad de los métodos del TDA Solver
 
 @image html analisis_solver.png
 */
