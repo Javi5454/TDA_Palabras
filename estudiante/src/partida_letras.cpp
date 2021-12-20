@@ -58,16 +58,18 @@ int main(int argc, char *argv[]){
 
     Dictionary dictionary;
 
+    int count = 0;
+
     if (dict_input){
         while(!dict_input.eof()) {
             string to_add;
             dict_input >> to_add;
 
-            if (!to_add.empty()){
-                dictionary.insert(to_add);
-            }
+            count++;
+            dictionary.insert(to_add);
         }
     }
+
     dict_input.close();
 
     // Solution

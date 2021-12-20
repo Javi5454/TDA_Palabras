@@ -18,13 +18,7 @@ bool Dictionary::exists(const std::string &val) const {
 }
 
 bool Dictionary::insert(const string &val) {
-    if (exists(val)){
-        return false;
-    }
-    else{
-        words.insert(val);
-        return true;
-    }
+    return words.insert(val).second;
 }
 
 bool Dictionary::erase(const string &val) {

@@ -713,7 +713,7 @@ Para mantener los principios de ocultación de información, nos limitaremos a n
 los métodos privados de la clase y su complejidad computacional, sin mostrar
 su código.
 
-- __bool possibleSol(vector<char> available_letters, const string &word)__ Eficiencia
+- __bool wordScore(vector<char> available_letters, const string &word)__ Eficiencia
 de O(n^3)
 - __Dictionary possibleWords(const vector<char>& available_letters)__ Eficiencia de
 O(n^4 * log(n))
