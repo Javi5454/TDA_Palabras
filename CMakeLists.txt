@@ -1,11 +1,24 @@
 cmake_minimum_required(VERSION 3.13)
-project(p05_solver_letras)
+project(p05_letras_arbol)
 
 set(CMAKE_CXX_STANDARD 14)
 
 set(BASE_FOLDER estudiante)
 
 include_directories(${BASE_FOLDER}/include)
+
+if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/cantidad_letras.cpp)
+  add_executable(cantidad_letras
+    ${BASE_FOLDER}/src/cantidad_letras.cpp
+    ${BASE_FOLDER}/src/dictionary.cpp
+    ${BASE_FOLDER}/src/letters_set.cpp)
+endif()
+
+if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/diccionario.cpp)
+  add_executable(diccionario
+    ${BASE_FOLDER}/src/diccionario.cpp
+    ${BASE_FOLDER}/src/dictionary.cpp)
+endif()
 
 if (EXISTS ${CMAKE_SOURCE_DIR}/${BASE_FOLDER}/src/partida_letras.cpp)
   add_executable(partida_letras

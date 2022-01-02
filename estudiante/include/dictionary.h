@@ -1,371 +1,326 @@
-/**
- * @file dictionary.h
- * @brief Archivo de especificación del TDA Dictionary
- * @author Adrián Jaén Fuentes
- * @author Javier Gómez López
- */
+//
+// Created by fluque1995 on 8/9/21.
+//
 
-#ifndef __DICTIONARY_H__
-#define __DICTIONARY_H__
-#include <set>
+#ifndef TREE_DICTIONARY_HPP
+#define TREE_DICTIONARY_HPP
+
+#include "tree.h"
 #include <string>
+#include <iostream>
 #include <vector>
+#include <utility>
+#include <list>
+#include <map>
+#include <set>
 
 using namespace std;
 
-/**
- * @brief TDA Dictionary
- * @details Almacena las palabras de un fichero de texto y permite iterar sobre ellas
- *
- */
-
-class Dictionary{
-    /**
-     * @page repDictionary Representación del TDA Dictionary
-     *
-     * @section invDictionary
-     *
-     * En nuestro Dictionary se mantienen un cojunto de palabras. Como
-     * no estaremos interesados en almacenar las definicones, solo los términos,
-     * usaremos un tipo de dato "set"
-     *
-     * @section faDictionary Función de abstracción
-     *
-     * fa: tipo_rep ----> Dictionary
-     *     set<string> ----> dictionary
-     *
-     *     La estructura set<string> representa el Dictionary
-     */
-
+class Dictionary {
 private:
-    /**
-     * @brief Set formado por las palabras del diccionario
-     */
-    set<string> words;
+  /**
+   * @brief Struct to represent a character inside the tree.
+   *
+   * The struct contains information about the character it that node, and
+   * information marking if a valid word of the dictionary finishes in
+   * that character
+   */
+  struct char_info {
+    char character;
+    bool valid_word;
 
+    /**
+     * Default constructor
+     */
+    inline char_info() : character(0), valid_word(false) {}
+
+    /**
+     * @brief Parameters constructor
+     *
+     * @param character Character to be inserted
+     * @param valid Marker for word validity
+     */
+    inline char_info(char character, bool valid=false) : character(character), valid_word(valid) {}
+    inline bool operator==(const char_info &rhs) {
+      return this->character == rhs.character && this->valid_word == rhs.valid_word;
+    }
+    inline bool operator!=(const char_info &rhs) { return !(*this == rhs); }
+    inline bool operator*() { return this->character; }
+    inline friend std::ostream &operator<<(std::ostream &os, const char_info& other){
+      os << other.character << (other.valid_word ? "✓" : "×");
+      return os;
+    }
+  };
+
+  tree<char_info> words;
+  typedef tree<char_info>::node node;
+
+  /**
+   * @brief Find the lower bound of a character among the children of the current node
+   *
+   * If the character exists among the children of the current node, that node is returned. If not,
+   * the returned node is the one with the biggest character (in terms of alphabetical order) smaller
+   * than the searched one
+   *
+   * @param character Character to be found
+   * @param current Reference node, the one whose children are going to be explored
+   * @return Lower bound node for the seeked character
+   */
+  node findLowerBoundChildNode(char character, node current);
+
+  /**
+   * @brief Insert character as children of the current node
+   *
+   * This method tries to insert a new character in the tree, as a child of the current node.
+   * If there already exists a node with that character, instead of inserting a new node, the
+   * already existing node with the character is returned
+   *
+   * @param character Character to be inserted
+   * @param current Reference node, the one that will be parent of the new inserted node
+   * @return Node corresponding to the inserted character
+   */
+  node insertCharacter(char character, node current);
+
+  /**
+   * @brief Find words up to a certain depth
+   *
+   * Helper method to implement the recursively search of words given a length. It searches
+   * for all the possible words formed using the current_word as prefix, continuing in the
+   * current_node, of remaining length given by remaining_levels
+   *
+   * @param remaining_levels The remaining depth we have to find
+   * @param current_node Node we are currently visiting, where we continue the search
+   * @param current_word Prefix added to subsequent characters to form valid words
+   * @return List of words at the desired depth
+   */
+  std::list<std::string> wordsByDepth(int remaining_levels, node current_node, std::string current_word);
+
+  /**
+   * @brief Find words that can be formed with the remaining characters
+   *
+   * @param characters Remaining characters that can be used to form words
+   * @param current_node Current node, where the search continues
+   * @param current_word Prefix added to found characters to form valid words
+   * @return List of words that can be formed with the specified characters
+   */
+  std::list<std::string> getCoincidentWords(std::multiset<char> &characters,
+					    node current_node,
+					    std::string current_word);
+
+  std::pair<int, int> getTotalUsages(node curr_node, char c);
 public:
 
-    class iterator{
+  /**
+   * @brief Constructor por defecto
+   *
+   * Crea un Dictionary vacío
+   */
+  Dictionary();
 
-        /**
-         * @page repIteradorDictionary Representación de el iterator de la clase Dictionary
-         */
+  /**
+   * @brief Constructor de copia
+   *
+   * Crea un Dictionary con el mismo contenido que el que se pasa como argumento
+   *
+   * @param other Dictionary que se quiere copiar
+   */
+  Dictionary(const Dictionary& other);
 
-    private:
-        set<string>::iterator it;
+  /**
+   * @brief Destructor
+   *
+   * Limpia todos los elementos del Dictionary antes de borrarlo
+   */
+  ~Dictionary();
 
-    public:
-        /**
-         * @brief Constructor de iterator por defecto
-         */
-        iterator(){}
+  /**
+   *  \brief Limpia el Dictionary
+   *
+   *  Elimina todas las palabras contenidas en el conjunto
+   */
+  void clear() {this->words.clear();}
 
-        /**
-         * @brief Constructor de iterator por copia
-         * @param otro iterator a copiar
-         */
-        iterator(const set<string>::iterator& otro):it(otro){}
+  /**
+   * @brief Tamaño del diccionario
+   *
+   * @return Número de palabras guardadas en el diccionario
+   */
+  unsigned int size()const{return words.size();}
 
-        /**
-         * @brief Constructor de iterator por copia a otro dictionary::iterator
-         * @param otro dictionary::iterator a copiar
-         */
-        iterator(const iterator& otro):it(otro.it){}
+  /**
+   * @brief Devuelve las palabras en el diccionario con una longitud dada
+   * @param length Longitud de las palabras buscadas
+   * @return Vector de palabras con la longitud desdeada
+   */
+  vector<string> wordsOfLength(int length);
 
-        /**
-         * @brief Destructor por defecto
-         */
-        ~iterator(){}
+  /**
+   * @brief Indica si una palabra esta en el diccionario o no.
+   *
+   * Este método comprueba si una determinada palabra se encuentra o no en el dicccionario
+   *
+   * @param palabra: la palabra que se quiere buscar.
+   * @return Booleano indicando si la palabra existe o no en el diccionario
+   */
+  bool exists(const string& val);
 
-        /**
-         * @brief Sobrecarga del operador de asignacion
-         * @param otro iterator que se copia
-         */
-        iterator& operator= (const set<string>::iterator& otro){
-            it = otro;
+  /**
+   * @brief Indica el numero de apariciones de una letra.
+   *
+   * Se define el número de apariciones de una letra como el número de nodos
+   * del árbol en el que esa letra está repetida.
+   *
+   * @param c letra a buscar.
+   * @return Un entero indicando el numero de apariciones.
+   */
+  int getOccurrences(const char c);
 
-            return *this;
-        }
+  /**
+   * @brief Indica el numero de utilizaciones de una letra.
+   *
+   * Se define el número de utilizaciones de una letra como el número de veces
+   * que se utiliza para formar palabras. Es decir, si un prefijo se utiliza
+   * para formar dos palabras, las letras de ese prefijo se contarán dos veces
+   * en este método.
+   *
+   * @param c letra a buscar.
+   * @return Un entero indicando el numero de utilizaciones.
+   */
+  int getTotalUsages(const char c);
 
-        /**
-         * @brief Sobrecarga del operador de asignación
-         * @param otro dictionary::iterator a copiar
-         */
-        iterator& operator=(const iterator& otro){
-            it = otro.it;
+  /**
+   * @brief Cuenta el total de letras de un diccionario.
+   * @return Entero con el total de letras.
+   */
+  int getTotalLetters();
 
-            return *this;
-        }
+  /**
+   * @brief Comprueba si el diccionario está vacio.
+   * @return true si el diccionario está vacío, false en caso contrario
+   */
+  bool empty()const{return words.empty();}
 
-        /**
-         * @brief Sobrecarga del operador de acceso
-         * @return \<string> donde apunta el iterador
-         */
-        string operator*() const{
-            return *it;
-        }
+  /**
+   * @brief Elimina una palabra del diccionario
+   *
+   * @param val Palabra a borrar del diccionario
+   *
+   * @return Booleano que indica si la palabra se ha borrado del diccionario
+   */
+  bool erase(const string &val);
 
-        /**
-         * @brief Sobrecarga del operador de incremento
-         */
-        iterator& operator++(){
-            it++;
-            return *this;
-        }
+  /**
+   * @brief Inserta una palabra en el diccionario
+   *
+   * @param val palaba a insertar en el diccionario
+   * @return Booleano que indica si la inserción ha tenido éxito. Una palabra se inserta
+   * con éxito si no existía previamente en el diccionario
+   */
+  bool insert(const string &val);
 
-        /**
-         * @brief Sobrecarga del operador de decremento
-         */
-        iterator& operator--(){
-            it--;
-            return *this;
-        }
+  /**
+   * @brief Sobrecarga del operador de asignación
+   */
+  Dictionary& operator=(const Dictionary &dic);
 
-        iterator& operator++(int){
-            it++;
-            return *this;
-        }
+  /**
+   * @brief Sobrecarga del operador de entrada
+   *
+   * Permite leer las palabras de un fichero de texto e introducirlas en el
+   * diccionario
+   *
+   * @param is Flujo de entrada
+   * @param dic Diccionario a rellenar
+   * @return Flujo de entrada para poder encadenar el operador
+   */
+  friend istream& operator>>(istream &is, Dictionary &dic);
 
-        iterator& operator--(int){
-            it--;
-            return *this;
-        }
+  /**
+   * @brief Sobrecarga del operador de salida
+   *
+   * Permite imprimir el diccionario completo a un flujo de salida
+   *
+   * @param os Flujo de salida, donde imprimir el diccionario
+   * @param dic Diccionario a imprimir
+   * @return Flujo de salida, para poder encadenar el operador
+   */
+  friend ostream& operator<<(ostream &os, const Dictionary &dic);
 
-        /**
-         * @brief Sobrecarga del operador de desigualdad
-         * @param otro iterador a comparar
-         * @return True si son distintos, false si son iguales
-         */
-        bool operator!= (const iterator& otro){
-            return it != otro.it;
-        }
+  /**
+   * @brief Recupera las palabras del Dictionary que se pueden formar con un
+   * conjunto de letras
+   *
+   * @param available_characters Conjunto de caracteres disponibles para formar
+   * palabras
+   */
+  vector<string> getPossibleWords(vector<char> available_characters);
 
-        /**
-         * @brief Sobrecarga del operador de igualdad
-         * @param otro iterador a comparar
-         * @return True si son iguales, false si son distintos
-         */
-        bool operator== (const iterator& otro){
-            return it == otro.it;
-        }
-    };
+  /**
+   * @brief Iterator over the dictionary. It allows to retrieve all the stored words
+   * in alphabetical order (it coincides with the preorder traversal of the tree)
+   */
+  class iterator {
+  private:
+    std::string curr_word;
+    tree<char_info>::const_preorder_iterator iter;
+
+    void nextWord();
+  public:
 
     /**
-     * @brief Iterador begin
-     * @return Iterator begin de Dicitonary
+     * @brief Default constructor
      */
-    iterator begin(){
-        iterator i = words.begin();
-        return i;
-    }
+    iterator();
 
     /**
-     * @brief Iterador end
-     * @return Iterator end de Dicitonary
-     */
-    iterator end(){
-        iterator i = words.end();
-        return i;
-    }
-
-    class const_iterator{
-
-        /**
-         * @page repConstIteratorDictionary Representacion del const_iterator de la clase Dictionary
-         */
-    private:
-        set<string>::const_iterator it;
-
-    public:
-        /**
-         * @brief Constructor de const_iterator por defecto
-         */
-        const_iterator(){}
-
-        /**
-         * @page Constructor de const_iterator por copia
-         * @param otro const_iterator de set a copiar
-         */
-        const_iterator(const set<string>::const_iterator& otro):it(otro){}
-
-        /**
-         * @brief Constructor de const_iterator por copia
-         * @param otro const_iterator de dictionary a copiar
-         */
-        const_iterator(const const_iterator& otro):it(otro.it){}
-
-        /**
-         * @brief Destructor por defecto
-         */
-        ~const_iterator(){}
-
-        /**
-         * @brief Sobrecarga del operador de asignación
-         * @param otro set const_iterator a copiar
-         */
-        const_iterator& operator=(const set<string>::const_iterator& otro){
-            it = otro;
-            return *this;
-        }
-
-        /**
-         * @brief Sobrecarga del operador de asignación
-         * @param otro dictionary const_iterator a copiar
-         */
-        const_iterator& operator=(const const_iterator& otro){
-            it = otro.it;
-            return *this;
-        }
-
-        /**
-         * @brief Sobrecarga del operador de acceso
-         * @return String a donde apunta el const_iterator
-         */
-        string operator*() const{
-            return *it;
-        }
-
-        /**
-         * @brief Sobrecarga del operador de incremento
-         */
-        const_iterator& operator++(){
-            it++;
-            return *this;
-        }
-
-        /**
-         * @brief Sobrecarga del operador de decremento
-         * @return
-         */
-        const_iterator& operator--(){
-            it--;
-            return *this;
-        }
-
-        const_iterator& operator++(int){
-            it++;
-            return *this;
-        }
-
-        const_iterator& operator--(int){
-            it--;
-            return *this;
-        }
-
-        /**
-         * @brief Sobrecarga de operador de desigualdad
-         * @param otro const_iterator a comparar
-         * @return True si son distintos, false si son iguales
-         */
-        bool operator!=(const const_iterator& otro){
-            return it != otro.it;
-        }
-
-        /**
-         * @brief Sobrecarga del operador de igualdad
-         * @param otro const_iterator a comparar
-         * @return True si son iguales, false si son distintos
-         */
-        bool operator==(const const_iterator& otro){
-            return it == otro.it;
-        }
-    };
-
-    /**
-     * @brief Acceso primer elemento del dictionary mediante iterador constante
-     * @return const_iterator que apunta al primer elemento de el dictionary
-     */
-    const_iterator begin() const{
-        const_iterator i = words.begin();
-        return i;
-    }
-
-    /**
-     * @brief Acceso a memoria inmediatamente después del último elemento del dictionary mediante interador constante
-     * @return const_iterator que apunta a la posición de memoria inmediatamente continua a el último elemento del
-     * dictionary
-     */
-    const_iterator end() const{
-        const_iterator i = words.end();
-        return i;
-    }
-
-    /**
-     * @brief Constructor por defecto.
+     * @brief Constructor given a tree preorder iterator
      *
-     * Crea un Dictionary vacío
+     * @param iter Iterator from tree where our iterator will be pointed
      */
-    Dictionary();
+    iterator(tree<char_info>::const_preorder_iterator iter);
 
     /**
-     * @brief Constructor de copia
+     * @brief Reference operator overload
      *
-     * Crea un Dictionary con el mismo contenido que el que se pasa como argumento
-     * @param other Dictionary que se quiere copiar
+     * @return Current word pointed by the iterator
      */
-    Dictionary(const Dictionary & other);
+    std::string operator*();
 
     /**
-     * @brief Indica si una palabra está en el diccionario o no.
+     * @brief Advance iterator overload
      *
-     * Este método comprueba si una determinada palabra se enceuntra o no en el diccionario.
-     * @param val La palabra que se quiere buscar.
-     * @return Booleano indicando si la palabra existe o no en el diccioanrio
+     * @return Iterator pointing to the following word
      */
-    bool exists(const string &val) const;
+    iterator &operator++();
 
     /**
-     * @brief Inserta una palabra en el diccionario.
-     * @param val Palabra a insertar en el diccionario
-     * @return Booleano que indica si la insercción ha tenido éxito. Una palabra se inserta con éxito si no existía previamente en el diccionario.
-     */
-    bool insert(const string &val);
-
-    /**
-     * @brief Elimina una palabra del diccionario.
-     * @param val Palabra a borrar del diccionario
-     * @return Booleano que indica si la palabra se ha borrado del diccionario
-     */
-    bool erase(const string &val);
-
-    /**
-     * @brief Limpia el Dictionary
+     * @brief Comparison of equality operator overload
      *
-     * Elimina todas las palabras contenidas en el conjunto
+     * @param other Iterator to compare against
+     * @return true if boths iterators are equal, false otherwise
      */
-    void clear();
+    bool operator==(const iterator &other);
 
     /**
-     * @brief Comprueba si el diccionario está vacío.
-     * @return True si el diccionario está vacío, false en caso contrario
+     * @brief Comparison of inequality operator overload
+     *
+     * @param other Tterator to compare against
+     * @return true if iterators are different, false otherwise
      */
-    bool empty();
+    bool operator!=(const iterator &other);
 
-    /**
-     * @brief Tamaño del diccionario
-     * @return Número de palabras guardadas en el diccionario
-     */
-    unsigned int size() const;
+    friend class Dictionary;
+  };
 
-    /**
-     * @brief Indica el número de apariciones de una letra
-     * @param c letra a buscar
-     * @return Un entero indicando el numero de aparaciones
-     */
-    int getOcurrences(char c);
+  /**
+   * @brief Iterator pointing to the first word in the dictionary
+   */
+  iterator begin() const;
 
-    /**
-     * @brief Cuenta el total de letras de un diccionario.
-     * @return Entero con el total de letras
-     */
-    int getTotalLetters();
-
-    /**
-     * @brief Devuelve las palabras en el diccionario con una longitud dada.
-     * @param length Longitud de las palabras buscadas
-     * @return Vector de palabras con la longitud deseada
-     */
-    vector<string> wordsOfLength(int length) const;
+  /**
+   * @brief Iterator pointing to the end of the dictionary
+   */
+  iterator end() const;
 };
 
-#endif
+#endif //TREE_DICTIONARY_HPP

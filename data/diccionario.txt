@@ -5662,7 +5662,6 @@ angosto
 angostura
 angra
 angrelado
-angström
 anguarina
 anguera
 anguila
@@ -12373,7 +12372,6 @@ bozalillo
 bozo
 bozon
 boil
-boîte
 brabante
 brabanzon
 brabantico
@@ -50675,7 +50673,6 @@ mazurca
 maido
 mailla
 maillo
-maître
 maiz
 maullo
 mbaya
